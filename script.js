@@ -92,23 +92,21 @@ function getOrCreatePool() {
   }
 
   // se já consumiu tudo, reseta e embaralha de novo
-  if (usedUntil >= pool.length) {
-    pool = Array.from({ length: QUESTIONS.length }, (_, i) => i);
-    shuffleArray(pool);
-    usedUntil = 0;
-  }
+if (usedUntil >= pool.length) {
+  pool = Array.from({ length: QUESTIONS.length }, (_, i) => i);
+  shuffleArray(pool);
+  usedUntil = 0;
+}
 
-const ROUND_SIZE = getRoundSize();
-const end        = Math.min(usedUntil + ROUND_SIZE, pool.length);
+const end = Math.min(usedUntil + ROUND_SIZE, pool.length);
 
-  const roundIndices = pool.slice(usedUntil, end);
+const roundIndices = pool.slice(usedUntil, end);
 
   // salva novo ponto onde parou
-  localStorage.setItem(
-    STORAGE_KEY_POOL,
-    JSON.stringify({ pool, usedUntil: end })
-  );
-
+localStorage.setItem(
+  STORAGE_KEY_POOL,
+  JSON.stringify({ pool, usedUntil: end })
+);
   // converte índices em objetos de questão
   return roundIndices.map(idx => QUESTIONS[idx]);
 }
