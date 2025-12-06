@@ -1379,5 +1379,368 @@ const QUESTIONS = [
         ],
         "answer": "Amazon SQS e Amazon SNS",
         "explanation": "SQS e SNS permitem comunicação assíncrona e desacoplada entre componentes, usando filas e tópicos de publicação/assinatura."
-    }
+    },
+    {
+    "id": "q121",
+    "text": "Uma startup precisa de uma solução de banco de dados totalmente gerenciada para armazenar dados relacionais com suporte a SQL padrão e alta disponibilidade automática. Qual serviço é o mais adequado?",
+    "options": [
+        "Amazon RDS",
+        "Amazon S3",
+        "Amazon DynamoDB",
+        "Amazon Redshift"
+    ],
+    "answer": "Amazon RDS",
+    "explanation": "O Amazon RDS é um serviço de banco de dados relacional gerenciado que suporta vários mecanismos SQL e cuida de tarefas operacionais como backups e alta disponibilidade."
+},
+{
+    "id": "q122",
+    "text": "Uma equipe precisa armazenar grandes quantidades de arquivos estáticos (imagens, vídeos, backups) com alta durabilidade e baixo custo. Qual serviço deve ser usado como repositório principal?",
+    "options": [
+        "Amazon EBS",
+        "Amazon S3",
+        "Amazon RDS",
+        "Amazon ElastiCache"
+    ],
+    "answer": "Amazon S3",
+    "explanation": "O Amazon S3 é um serviço de armazenamento de objetos altamente durável e escalável, ideal para grandes volumes de dados estáticos."
+},
+{
+    "id": "q123",
+    "text": "Um cliente deseja implantar contêineres sem gerenciar servidores ou clusters. Qual serviço da AWS oferece orquestração de contêineres serverless?",
+    "options": [
+        "Amazon EC2 Auto Scaling",
+        "Amazon ECS com Fargate",
+        "Amazon EKS em EC2",
+        "AWS Elastic Beanstalk em EC2"
+    ],
+    "answer": "Amazon ECS com Fargate",
+    "explanation": "O AWS Fargate permite executar contêineres sem gerenciar servidores ou clusters, funcionando com ECS ou EKS."
+},
+{
+    "id": "q124",
+    "text": "Uma aplicação web precisa escalar automaticamente a quantidade de instâncias EC2 de acordo com a demanda. Qual combinação de serviços deve ser usada?",
+    "options": [
+        "Amazon CloudFront e AWS WAF",
+        "Elastic Load Balancing e Auto Scaling",
+        "Amazon S3 e Amazon Glacier",
+        "AWS Backup e AWS Config"
+    ],
+    "answer": "Elastic Load Balancing e Auto Scaling",
+    "explanation": "O Auto Scaling ajusta a quantidade de instâncias EC2 e o Elastic Load Balancer distribui o tráfego entre elas, garantindo escalabilidade e alta disponibilidade."
+},
+{
+    "id": "q125",
+    "text": "Uma empresa quer analisar grandes volumes de dados de logs para gerar relatórios e painéis de BI. Qual serviço de data warehouse é mais indicado?",
+    "options": [
+        "Amazon DynamoDB",
+        "Amazon Aurora",
+        "Amazon Redshift",
+        "AWS Lambda"
+    ],
+    "answer": "Amazon Redshift",
+    "explanation": "O Amazon Redshift é um serviço de data warehouse totalmente gerenciado, otimizado para consultas analíticas em grandes volumes de dados."
+},
+{
+    "id": "q126",
+    "text": "Uma aplicação precisa executar pequenos trechos de código em resposta a eventos, sem provisionar ou gerenciar servidores. Qual serviço é mais apropriado?",
+    "options": [
+        "Amazon EC2",
+        "AWS Lambda",
+        "Amazon ECS",
+        "AWS Batch"
+    ],
+    "answer": "AWS Lambda",
+    "explanation": "O AWS Lambda permite executar código sob demanda em resposta a eventos, sem necessidade de gerenciar servidores."
+},
+{
+    "id": "q127",
+    "text": "Uma empresa quer proteger a camada de aplicação HTTP/HTTPS contra ataques como SQL injection e cross-site scripting. Qual serviço deve ser utilizado?",
+    "options": [
+        "AWS Shield Standard",
+        "AWS WAF",
+        "AWS Firewall Manager",
+        "Amazon GuardDuty"
+    ],
+    "answer": "AWS WAF",
+    "explanation": "O AWS WAF é um firewall de aplicação web que ajuda a proteger aplicações contra padrões comuns de ataque na camada HTTP/HTTPS."
+},
+{
+    "id": "q128",
+    "text": "Um time precisa de um serviço gerenciado de cache na memória para reduzir a latência de leitura em um banco de dados. Qual serviço atende melhor essa necessidade?",
+    "options": [
+        "Amazon S3",
+        "Amazon ElastiCache",
+        "Amazon EFS",
+        "Amazon RDS"
+    ],
+    "answer": "Amazon ElastiCache",
+    "explanation": "O Amazon ElastiCache fornece cache na memória gerenciado com Redis ou Memcached, reduzindo a latência de acesso a dados frequentemente lidos."
+},
+{
+    "id": "q129",
+    "text": "Uma empresa quer controlar o acesso a recursos da AWS por usuário e aplicar o princípio do menor privilégio. Qual serviço é responsável por isso?",
+    "options": [
+        "AWS Organizations",
+        "AWS IAM",
+        "AWS KMS",
+        "AWS Secrets Manager"
+    ],
+    "answer": "AWS IAM",
+    "explanation": "O AWS Identity and Access Management (IAM) gerencia usuários, grupos, funções e políticas de permissões, permitindo aplicar o menor privilégio."
+},
+{
+    "id": "q130",
+    "text": "Um desenvolvedor deseja monitorar métricas como CPU de instâncias EC2, criar alarmes e acionar ações automáticas. Qual serviço deve ser usado?",
+    "options": [
+        "AWS CloudTrail",
+        "Amazon CloudWatch",
+        "AWS Config",
+        "AWS Trusted Advisor"
+    ],
+    "answer": "Amazon CloudWatch",
+    "explanation": "O Amazon CloudWatch coleta métricas, logs e eventos, permitindo criar alarmes e acionar ações com base no comportamento dos recursos."
+},
+{
+    "id": "q131",
+    "text": "Uma empresa quer registrar e auditar todas as chamadas de API feitas na conta AWS, incluindo quem fez a chamada e de onde. Qual serviço deve ser utilizado?",
+    "options": [
+        "Amazon CloudWatch",
+        "AWS CloudTrail",
+        "AWS Config",
+        "AWS Trusted Advisor"
+    ],
+    "answer": "AWS CloudTrail",
+    "explanation": "O AWS CloudTrail registra chamadas de API e eventos de gerenciamento, permitindo auditoria e rastreabilidade de ações na conta."
+},
+{
+    "id": "q132",
+    "text": "Um time deseja hospedar um site estático (HTML, CSS e JavaScript) de forma altamente disponível e de baixo custo. Qual combinação de serviços é mais apropriada?",
+    "options": [
+        "Amazon S3 e Amazon CloudFront",
+        "Amazon EC2 e Amazon EBS",
+        "Amazon RDS e Elastic Load Balancing",
+        "AWS Lambda e API Gateway"
+    ],
+    "answer": "Amazon S3 e Amazon CloudFront",
+    "explanation": "Arquivos estáticos podem ser servidos diretamente do Amazon S3 e distribuídos globalmente com baixa latência usando o Amazon CloudFront."
+},
+{
+    "id": "q133",
+    "text": "Uma organização precisa gerenciar várias contas AWS de forma centralizada, com políticas e faturamento consolidados. Qual serviço deve ser usado?",
+    "options": [
+        "AWS IAM",
+        "AWS Organizations",
+        "AWS Control Tower",
+        "AWS Systems Manager"
+    ],
+    "answer": "AWS Organizations",
+    "explanation": "O AWS Organizations permite gerenciar múltiplas contas com políticas centralizadas e faturamento consolidado."
+},
+{
+    "id": "q134",
+    "text": "Um aplicativo exige um banco de dados NoSQL altamente escalável para armazenar dados de chave-valor com baixa latência. Qual serviço é mais adequado?",
+    "options": [
+        "Amazon RDS for MySQL",
+        "Amazon Redshift",
+        "Amazon DynamoDB",
+        "Amazon Neptune"
+    ],
+    "answer": "Amazon DynamoDB",
+    "explanation": "O Amazon DynamoDB é um banco de dados NoSQL totalmente gerenciado, otimizado para workloads de chave-valor com alta escala e baixa latência."
+},
+{
+    "id": "q135",
+    "text": "Uma empresa quer criptografar dados em repouso usando chaves gerenciadas pela própria organização (customer managed keys). Qual serviço deve ser utilizado para gerenciar essas chaves?",
+    "options": [
+        "AWS KMS",
+        "AWS Secrets Manager",
+        "AWS Certificate Manager",
+        "Amazon GuardDuty"
+    ],
+    "answer": "AWS KMS",
+    "explanation": "O AWS Key Management Service (KMS) gerencia chaves de criptografia, incluindo chaves gerenciadas pelo cliente, para criptografar dados em repouso em vários serviços da AWS."
+},
+{
+    "id": "q136",
+    "text": "Uma empresa quer uma solução de armazenamento de arquivos compartilhados para várias instâncias EC2 em uma mesma VPC, usando um sistema de arquivos POSIX. Qual serviço é mais apropriado?",
+    "options": [
+        "Amazon S3",
+        "Amazon EFS",
+        "Amazon EBS",
+        "Amazon Glacier"
+    ],
+    "answer": "Amazon EFS",
+    "explanation": "O Amazon EFS fornece um sistema de arquivos compartilhado, elástico e compatível com POSIX que pode ser montado em várias instâncias EC2."
+},
+{
+    "id": "q137",
+    "text": "Uma equipe precisa executar workloads em contêineres usando Kubernetes gerenciado pela AWS. Qual serviço deve ser utilizado?",
+    "options": [
+        "Amazon ECS",
+        "AWS Fargate",
+        "Amazon EKS",
+        "AWS Batch"
+    ],
+    "answer": "Amazon EKS",
+    "explanation": "O Amazon Elastic Kubernetes Service (EKS) é o serviço gerenciado de Kubernetes da AWS, simplificando a execução de clusters Kubernetes."
+},
+{
+    "id": "q138",
+    "text": "Um time de segurança quer receber alertas automáticos sobre comportamentos suspeitos na conta AWS, como chaves de acesso potencialmente comprometidas. Qual serviço é mais indicado?",
+    "options": [
+        "AWS Config",
+        "Amazon GuardDuty",
+        "AWS CloudTrail",
+        "AWS Shield Advanced"
+    ],
+    "answer": "Amazon GuardDuty",
+    "explanation": "O Amazon GuardDuty é um serviço de detecção de ameaças que analisa logs e metadados para identificar comportamentos suspeitos na conta."
+},
+{
+    "id": "q139",
+    "text": "Uma aplicação precisa expor uma API REST escalável e segura para clientes externos, com integração fácil com funções Lambda. Qual serviço deve ser usado na frente da API?",
+    "options": [
+        "Amazon CloudFront",
+        "Application Load Balancer",
+        "AWS App Runner",
+        "Amazon API Gateway"
+    ],
+    "answer": "Amazon API Gateway",
+    "explanation": "O Amazon API Gateway cria, protege e escala APIs REST e HTTP, integrando-se diretamente com AWS Lambda e outros serviços."
+},
+{
+    "id": "q140",
+    "text": "Uma organização deseja aplicar automaticamente regras de configuração em recursos AWS, como obrigar buckets S3 a estarem criptografados. Qual serviço deve ser utilizado?",
+    "options": [
+        "AWS Config",
+        "AWS CloudTrail",
+        "AWS IAM",
+        "AWS Systems Manager"
+    ],
+    "answer": "AWS Config",
+    "explanation": "O AWS Config monitora configurações de recursos e pode avaliar automaticamente a conformidade com regras definidas, como criptografia em buckets S3."
+},
+{
+    "id": "q141",
+    "text": "Uma empresa deseja reduzir custos usando instâncias EC2 para workloads tolerantes à interrupção, como processamento batch. Qual modelo de preço é mais adequado?",
+    "options": [
+        "Instâncias On-Demand",
+        "Instâncias Reservadas",
+        "Instâncias Spot",
+        "Dedicated Hosts"
+    ],
+    "answer": "Instâncias Spot",
+    "explanation": "Instâncias Spot oferecem grande desconto em relação às On-Demand em troca da possibilidade de interrupção, sendo ideais para workloads flexíveis e tolerantes a falhas."
+},
+{
+    "id": "q142",
+    "text": "Um time quer analisar dados armazenados no Amazon S3 usando SQL, sem precisar gerenciar servidores ou carregar dados para um banco de dados. Qual serviço deve ser utilizado?",
+    "options": [
+        "Amazon RDS",
+        "Amazon Athena",
+        "Amazon Redshift",
+        "AWS Glue"
+    ],
+    "answer": "Amazon Athena",
+    "explanation": "O Amazon Athena permite executar consultas SQL diretamente sobre dados armazenados no S3, sem gerenciar infraestrutura de banco de dados."
+},
+{
+    "id": "q143",
+    "text": "Uma empresa precisa de uma conexão de rede dedicada e de baixa latência entre o data center on-premises e a AWS. Qual serviço é mais apropriado?",
+    "options": [
+        "AWS Site-to-Site VPN",
+        "AWS Direct Connect",
+        "AWS Client VPN",
+        "Amazon Route 53"
+    ],
+    "answer": "AWS Direct Connect",
+    "explanation": "O AWS Direct Connect fornece uma conexão de rede física dedicada entre o ambiente on-premises e a AWS, oferecendo menor latência e throughput previsível."
+},
+{
+    "id": "q144",
+    "text": "Um time financeiro quer receber alertas quando o custo mensal estimado ultrapassar um determinado valor. Qual serviço deve ser configurado?",
+    "options": [
+        "AWS Cost Explorer",
+        "AWS Budgets",
+        "AWS Cost and Usage Reports",
+        "AWS Trusted Advisor"
+    ],
+    "answer": "AWS Budgets",
+    "explanation": "O AWS Budgets permite definir limites de custo ou uso e enviar alertas por e-mail ou SNS quando os valores reais ou previstos ultrapassam o limite definido."
+},
+{
+    "id": "q145",
+    "text": "Uma aplicação em produção precisa de proteção automática contra ataques DDoS na camada de rede e transporte, sem custo adicional. Qual serviço fornece isso por padrão?",
+    "options": [
+        "AWS WAF",
+        "AWS Shield Standard",
+        "AWS Shield Advanced",
+        "AWS Firewall Manager"
+    ],
+    "answer": "AWS Shield Standard",
+    "explanation": "O AWS Shield Standard oferece proteção automática contra ataques DDoS para recursos como CloudFront, Route 53 e ALB sem custo adicional."
+},
+
+{
+    "id": "q146",
+    "text": "Uma equipe de desenvolvimento quer automatizar o processo de criação, atualização e remoção de infraestrutura AWS usando templates versionados. Qual serviço é mais apropriado?",
+    "options": [
+        "AWS CloudFormation",
+        "AWS CodeDeploy",
+        "AWS CodeBuild",
+        "AWS OpsWorks"
+    ],
+    "answer": "AWS CloudFormation",
+    "explanation": "O AWS CloudFormation permite definir toda a infraestrutura como código por meio de templates, automatizando criação, atualização e exclusão de recursos AWS."
+},
+{
+    "id": "q147",
+    "text": "Uma aplicação global precisa de resolução de nomes de domínio e roteamento inteligente de tráfego para diferentes regiões, com suporte a verificações de integridade (health checks). Qual serviço deve ser usado?",
+    "options": [
+        "Amazon Route 53",
+        "AWS Global Accelerator",
+        "Amazon CloudFront",
+        "Elastic Load Balancing"
+    ],
+    "answer": "Amazon Route 53",
+    "explanation": "O Amazon Route 53 é um serviço de DNS gerenciado que oferece roteamento avançado e health checks para direcionar o tráfego de forma inteligente."
+},
+{
+    "id": "q148",
+    "text": "Um time quer armazenar segredos como senhas de banco de dados e chaves de API de forma segura, com rotação automática de credenciais. Qual serviço deve ser utilizado?",
+    "options": [
+        "AWS KMS",
+        "AWS Secrets Manager",
+        "AWS Systems Manager Parameter Store (Standard)",
+        "Amazon Cognito"
+    ],
+    "answer": "AWS Secrets Manager",
+    "explanation": "O AWS Secrets Manager foi projetado para armazenar e rotacionar automaticamente segredos como senhas e chaves de API, integrando-se com outros serviços da AWS."
+},
+{
+    "id": "q149",
+    "text": "Uma empresa quer identificar dados sensíveis, como informações pessoais (PII), armazenados em grandes quantidades de objetos no Amazon S3. Qual serviço ajuda nessa tarefa?",
+    "options": [
+        "Amazon GuardDuty",
+        "Amazon Macie",
+        "AWS Config",
+        "AWS CloudTrail"
+    ],
+    "answer": "Amazon Macie",
+    "explanation": "O Amazon Macie usa machine learning para descobrir, classificar e ajudar a proteger dados sensíveis armazenados em buckets S3."
+},
+{
+    "id": "q150",
+    "text": "Um cliente deseja um modelo de responsabilidade em que a AWS gerencia a infraestrutura física, mas o cliente continua responsável pelo sistema operacional e pelas aplicações dentro das instâncias. Qual modelo de serviço melhor descreve isso?",
+    "options": [
+        "Software as a Service (SaaS)",
+        "Platform as a Service (PaaS)",
+        "Infrastructure as a Service (IaaS)",
+        "Function as a Service (FaaS)"
+    ],
+    "answer": "Infrastructure as a Service (IaaS)",
+    "explanation": "No modelo IaaS, a AWS gerencia infraestrutura básica (rede, armazenamento, hardware) enquanto o cliente administra sistema operacional, middleware e aplicações, como em EC2."
+},
+
+
 ]

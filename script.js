@@ -2,26 +2,49 @@
 
 const EXAM_DURATION_SECONDS = 90 * 60; // 90 minutos
 const PASSING_PERCENT = 70;
+const ROUND_SIZE = 65;                 // quantas questões por simulado
 
-let currentIndex = 0;      // índice da questão atual
+const STORAGE_KEY_STATE = "aws_quiz_state";
+const STORAGE_KEY_POOL  = "aws_quiz_pool";
+
+let currentIndex = 0;      // índice da questão atual dentro da rodada
 let answers = {};          // { qid: "texto da opção" }
 let remainingSeconds = EXAM_DURATION_SECONDS;
 let timerInterval = null;
 
+// pool atual de questões desta rodada (subconjunto de QUESTIONS)
+let CURRENT_QUESTIONS = [];
 function startQuiz() {
   const saved = loadState();
-  if (saved) {
-    currentIndex = saved.currentIndex;
-    answers = saved.answers;
-    remainingSeconds = saved.remainingSeconds;
+  if (saved && saved.currentQuestions && saved.currentQuestions.length > 0) {
+    // Continua de onde parou
+    CURRENT_QUESTIONS  = saved.currentQuestions;
+    currentIndex       = saved.currentIndex;
+    answers            = saved.answers;
+    remainingSeconds   = saved.remainingSeconds;
+  } else {
+    // Nova rodada: cria subconjunto aleatório
+    CURRENT_QUESTIONS = getOrCreatePool();
+    currentIndex      = 0;
+    answers           = {};
+    remainingSeconds  = EXAM_DURATION_SECONDS;
   }
   renderQuestion();
   startTimer();
 }
 
+// Em vez de const ROUND_SIZE = 65;
+function getRoundSize() {
+  const total = QUESTIONS.length;
+  // critério: usar 40% do total, mínimo 10 questões
+  const percent = 0.4;
+  return Math.max(10, Math.floor(total * percent));
+}
+
+
 function loadState() {
   try {
-    const raw = localStorage.getItem("aws_quiz_state");
+    const raw = localStorage.getItem(STORAGE_KEY_STATE);
     if (!raw) return null;
     return JSON.parse(raw);
   } catch {
@@ -30,14 +53,73 @@ function loadState() {
 }
 
 function saveState() {
-  const state = { currentIndex, answers, remainingSeconds };
-  localStorage.setItem("aws_quiz_state", JSON.stringify(state));
+  const state = {
+    currentIndex,
+    answers,
+    remainingSeconds,
+    currentQuestions: CURRENT_QUESTIONS
+  };
+  localStorage.setItem(STORAGE_KEY_STATE, JSON.stringify(state));
 }
 
 function clearState() {
-  localStorage.removeItem("aws_quiz_state");
+  localStorage.removeItem(STORAGE_KEY_STATE);
 }
 
+function createNewPool() {
+  const pool = Array.from({ length: QUESTIONS.length }, (_, i) => i);
+  shuffleArray(pool);
+  localStorage.setItem(
+    STORAGE_KEY_POOL,
+    JSON.stringify({ pool, usedUntil: 0 })
+  );
+}
+
+// Retorna um array de questões para esta rodada (CURRENT_QUESTIONS)
+function getOrCreatePool() {
+  // pool = array de índices das questões em QUESTIONS
+  let poolRaw = localStorage.getItem(STORAGE_KEY_POOL);
+  let pool, usedUntil;
+
+  if (poolRaw) {
+    const obj = JSON.parse(poolRaw);
+    pool      = obj.pool;
+    usedUntil = obj.usedUntil;
+  } else {
+    pool = Array.from({ length: QUESTIONS.length }, (_, i) => i);
+    shuffleArray(pool);        // embaralha a ordem geral
+    usedUntil = 0;
+  }
+
+  // se já consumiu tudo, reseta e embaralha de novo
+  if (usedUntil >= pool.length) {
+    pool = Array.from({ length: QUESTIONS.length }, (_, i) => i);
+    shuffleArray(pool);
+    usedUntil = 0;
+  }
+
+const ROUND_SIZE = getRoundSize();
+const end        = Math.min(usedUntil + ROUND_SIZE, pool.length);
+
+  const roundIndices = pool.slice(usedUntil, end);
+
+  // salva novo ponto onde parou
+  localStorage.setItem(
+    STORAGE_KEY_POOL,
+    JSON.stringify({ pool, usedUntil: end })
+  );
+
+  // converte índices em objetos de questão
+  return roundIndices.map(idx => QUESTIONS[idx]);
+}
+
+// Fisher–Yates
+function shuffleArray(arr) {
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+}
 function formatTime(sec) {
   const m = Math.floor(sec / 60);
   const s = sec % 60;
@@ -64,12 +146,11 @@ function startTimer() {
     }
   }, 1000);
 }
-
 function renderQuestion() {
   const container = document.getElementById("quiz-container");
-  const total = QUESTIONS.length;
-  const q = QUESTIONS[currentIndex];
-  const selected = answers[q.id] || null;
+  const total     = CURRENT_QUESTIONS.length;
+  const q         = CURRENT_QUESTIONS[currentIndex];
+  const selected  = answers[q.id] || null;
 
   container.innerHTML = `
     <div class="row justify-content-center">
@@ -84,8 +165,7 @@ function renderQuestion() {
             </p>
 
             <p class="fw-semibold">${q.text}</p>
-
-            ${q.options.map((opt, idx) => `
+                        ${q.options.map((opt, idx) => `
               <div class="form-check mb-1">
                 <input class="form-check-input"
                        type="radio"
@@ -128,8 +208,8 @@ function renderQuestion() {
     </div>
   `;
 
-  const btnPrev = document.getElementById("btn-prev");
-  const btnNext = document.getElementById("btn-next");
+  const btnPrev   = document.getElementById("btn-prev");
+  const btnNext   = document.getElementById("btn-next");
   const btnFinish = document.getElementById("btn-finish");
 
   if (btnPrev) btnPrev.addEventListener("click", () => {
@@ -157,9 +237,8 @@ function renderQuestion() {
     finishQuiz();
   });
 }
-
 function saveAnswer() {
-  const q = QUESTIONS[currentIndex];
+  const q = CURRENT_QUESTIONS[currentIndex];
   const radioList = document.querySelectorAll('input[name="answer"]');
   let selected = null;
   radioList.forEach(r => {
@@ -173,9 +252,9 @@ function finishQuiz() {
 
   const results = [];
   let score = 0;
-  const total = QUESTIONS.length;
+  const total = CURRENT_QUESTIONS.length;
 
-  QUESTIONS.forEach(q => {
+  CURRENT_QUESTIONS.forEach(q => {
     const selected = answers[q.id] || null;
     const isCorrect = selected === q.answer;
     if (isCorrect) score++;
@@ -189,7 +268,7 @@ function finishQuiz() {
   });
 
   const percent = total > 0 ? (score / total) * 100 : 0;
-  const passed = percent >= PASSING_PERCENT;
+  const passed  = percent >= PASSING_PERCENT;
 
   renderResult({ score, total, percent, passed, results });
   clearState();
@@ -243,7 +322,7 @@ function renderResult(data) {
 
               ${r.is_correct ? `
                 <span class="badge bg-success mb-2">Correta</span>
-                <p class="mb-1">Sua resposta: <strong>${r.selected}</strong></p>
+                                <p class="mb-1">Sua resposta: <strong>${r.selected}</strong></p>
               ` : `
                 <span class="badge bg-danger mb-2">Incorreta</span>
                 <p class="mb-1">
@@ -273,15 +352,21 @@ function renderResult(data) {
     </div>
   `;
 
-  document.getElementById("btn-restart").addEventListener("click", () => {
-    currentIndex = 0;
-    answers = {};
-    remainingSeconds = EXAM_DURATION_SECONDS;
-    saveState();
-    renderQuestion();
-    startTimer();
-  });
+ document.getElementById("btn-restart").addEventListener("click", () => {
+  // nova rodada: recria e embaralha todo o pool
+  createNewPool();
+  CURRENT_QUESTIONS = getOrCreatePool();
+  currentIndex      = 0;
+  answers           = {};
+  remainingSeconds  = EXAM_DURATION_SECONDS;
+  saveState();
+  renderQuestion();
+  startTimer();
+});
+
 }
 
 // inicia tudo
 document.addEventListener("DOMContentLoaded", startQuiz);
+
+            
